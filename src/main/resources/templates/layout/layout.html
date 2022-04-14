@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/head::head">
+</head>
+<body>
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <header>
+
+            <div id="logo" onclick="slowScroll('#top')">
+                <span>CiscoSDU</span>
+            </div>
+            <div id="about" sec:authorize="isAnonymous()">
+                <a th:href="@{'/signin'}">Login</a>
+                <a href="#" onclick="slowScroll('#overview')" title="Преимущества">Contact</a>
+                <a href="#" onclick="slowScroll('#contacts')" title="Контакты">Labs</a>
+                <a href="#" onclick="slowScroll('#faq')" title="Ответы на вопросы">Profile</a>
+
+            </div>
+            <div id="about" sec:authorize="isAuthenticated()">
+                <a href="#" title="Возможности" onclick="slowScroll('#main')">Home</a>
+                <a href="#" onclick="slowScroll('#overview')" title="Преимущества">Course</a>
+                <a href="#" onclick="slowScroll('#contacts')" title="Контакты">Labs</a>
+                <a href="#" onclick="slowScroll('#faq')" title="Ответы на вопросы">FAQ</a>
+                <a href="#" onclick="slowScroll('#contacts')" title="Ответы на вопросы">ContactUs</a>
+                <a href="#" onclick="slowScroll('#faq')" title="Ответы на вопросы">Profile</a>
+                <a th:href="@{'/toexit'}">LogOut</a>
+            </div>
+        </header>
+
+    </div>
+</div>
+
+
+
+
+
+        <div layout:fragment="content">
+
+        </div>
+
+
+
+
+<div style="position: fixed; left: 0;bottom: 0;width: 100%;" class=" col-lg-12 mt-3 bg-dark py-3">
+    <p class="text-center text-light" th:text="'2022 SDU CISCO. All rights reserved.'"></p>
+</div>
+
+</body>
+</html>

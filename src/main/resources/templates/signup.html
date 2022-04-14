@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="layout/layout.html"
+>
+<div layout:fragment="content" >
+    <div class="mt-5">
+        <h1 class="text-center  ms-3">Войдите в учетную запись</h1>
+    </div>
+<div class="row mx-auto">
+
+
+    <form method="post" th:action="@{'/tosignup'}">
+
+        <div class="row mx-auto">
+            <div class="col-lg-6">
+                <label>Email:</label>
+            </div>
+        </div>
+        <div class="row mt-2 mx-auto ">
+            <div class="col-lg-6">
+                <input type="email" name="user_email" class="form-control" placeholder="Insert email" required>
+            </div>
+        </div>
+        <div class="row mt-3 mx-auto ">
+            <div class="col-lg-6">
+                <label>Password:</label>
+            </div>
+        </div>
+        <div class="row mt-2 mx-auto">
+            <div class="col-lg-6  ">
+                <input size="100" type="password" name="user_password" class="form-control" placeholder="Insert password" required>
+            </div>
+        </div>
+        <div class="row mt-5 mx-auto">
+            <div class="col-lg-6">
+                <button class="btn btn-success">SIGN IN</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</div>
+</html>
