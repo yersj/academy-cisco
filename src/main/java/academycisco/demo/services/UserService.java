@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -35,15 +36,18 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public UserDto login(LoginRequestDto dto){
-        User user=(User) loadUserByUsername(dto.getEmail());
+    public Long login(LoginRequestDto dto){
+        User user=(User) userRepository.findByEmail(dto.getEmail());
         if(user!=null){
 
             if(passwordEncoder.matches(dto.getPassword(), user.getPassword())){
-                return new UserDto(user.getName(), user.getSurname(),user.getEmail(),user.getBirthdate());
+                return user.getId();
             }
         }
-        return null;
+            return 777L;
+
+
+
     }
 
 
@@ -60,11 +64,17 @@ public class UserService implements UserDetailsService {
             user.setBirthdate(dto.getBirthdate());
 
 
+            Role role=roleRepository.findById(1L).get();
+            user.setRoles(Arrays.asList(role));
             userRepository.save(user);
             return "success";
         }else{
             return "error";
         }
+    }
+    
+    public List<User> getAllStudents(){
+        return  userRepository.findAllByRolesId(1L);
     }
 
 
