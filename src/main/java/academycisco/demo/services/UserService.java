@@ -14,9 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,32 +36,46 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDto login(LoginRequestDto dto){
-        User user=(User) loadUserByUsername(dto.getEmailId());
+        User user=(User) loadUserByUsername(dto.getEmail());
         if(user!=null){
 
             if(passwordEncoder.matches(dto.getPassword(), user.getPassword())){
-                return new UserDto(user.getEmail(),user.getRoles().stream().map(Role::getRole).collect(Collectors.toList()));
+                return new UserDto(user.getName(), user.getSurname(),user.getEmail(),user.getBirthdate());
             }
         }
         return null;
     }
+
+
 
     public String register(RegisterDto dto){
         User user=userRepository.findByEmail(dto.getEmail());
 
         if(user==null){
             user=new User();
-            user.setFullName(dto.getFullName());
+            user.setName(dto.getName());
+            user.setSurname(dto.getSurname());
             user.setEmail(dto.getEmail());
             user.setPassword( passwordEncoder.encode(dto.getPassword()));
+            user.setBirthdate(dto.getBirthdate());
 
-            Role role=roleRepository.findById(1L).get();
-            user.setRoles(Arrays.asList(role));
+
             userRepository.save(user);
             return "success";
         }else{
             return "error";
         }
+    }
+
+
+
+
+
+
+
+
+    public User getUser(Long id){
+             return  userRepository.findById(id).orElse(null);
     }
 }
 

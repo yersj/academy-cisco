@@ -7,7 +7,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
+
 import java.util.List;
 
 @Entity
@@ -20,10 +24,11 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String surname;
     private String email;
     private String password;
-    private String fullName;
-
+    private String birthdate;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
